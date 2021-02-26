@@ -61,6 +61,7 @@ void CommandSocket::handleResponseFromDrone(const std::error_code& error, size_t
 }
 
 void CommandSocket::sendCommand(const std::string& cmd){
+  utils_log::LogErr() << " ???? Now in send command with cmd = " << cmd ;
   n_retries_ = 0;
   ASYNC_SEND;
   usleep(1000); //TODO: reduce this to less than amount of time joystick waits?
@@ -130,6 +131,7 @@ void CommandSocket::executeQueue(){
 
 void CommandSocket::sendQueueCommands(){
   std::string cmd;
+  utils_log::LogErr() << "------ >>> in send Queue Commands and on_ is " << on_ ;
   while(on_){
     usleep(1000); // allow others to grab lock
     {
@@ -140,6 +142,7 @@ void CommandSocket::sendQueueCommands(){
     while(!command_queue_.empty() && execute_queue_){
       queue_mutex_.lock();
       cmd = command_queue_.front();
+      utils_log::LogErr() << "------ IMPORTANT --- cmd is " << cmd << " and waiting for response is " << waiting_for_response_ ;
       command_queue_.pop_front();
       queue_mutex_.unlock();
       if(cmd.substr(0,5) == "delay"){

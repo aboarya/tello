@@ -1,4 +1,4 @@
-#ifdef USE_CONFIG
+// #ifdef USE_CONFIG
 
 #include <map>
 #include <yaml-cpp/yaml.h>
@@ -84,4 +84,4 @@ struct ID{
   std::string type_id;
 };
 
-#endif // USE_CONFIG
+// #endif // USE_CONFIG

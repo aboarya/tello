@@ -1,4 +1,4 @@
-#ifdef RUN_SLAM
+//#ifdef RUN_SLAM
 
 #ifndef OPENVSLAM_API_HPP
 #define OPENVSLAM_API_HPP
@@ -74,4 +74,4 @@ private:
 
 #endif
 
-#endif
+//#endif

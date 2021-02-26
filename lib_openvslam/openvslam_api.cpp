@@ -98,6 +98,7 @@ OpenVSLAM_API::~OpenVSLAM_API(){};
 std::mutex& OpenVSLAM_API::getMutex(){
   return pangolin_viewer::frame_display_sync;
 }
+
 void OpenVSLAM_API::impl::addFrameToQueue(cv::Mat new_frame){
   if(frame_queue.size() < 3){
     std::unique_lock<std::mutex> lk(frame_m);

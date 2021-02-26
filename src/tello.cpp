@@ -28,6 +28,7 @@ const std::string sequence_file
 io_service_(io_service),
 cv_run_(cv_run)
 {
+  utils_log::LogErr() << "????????? >>>>>>>>> In Tello Constructor";  
   cs = std::make_unique<CommandSocket>(io_service, drone_ip, "8889", local_drone_port, n_retries, timeout);
   vs = std::make_unique<VideoSocket>(io_service,  "0.0.0.0", "11111", local_video_port,
     run_, camera_config_file, vocabulary_file, load_map_db_path, save_map_db_path,

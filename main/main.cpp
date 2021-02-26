@@ -20,24 +20,28 @@ int main(){
 
 #ifdef USE_CONFIG
 
+  utils_log::LogErr() << ">>>>>>>> USING CONFIG";
   std::map<std::string, std::unique_ptr<Tello>>  m = handleConfig("../config.yaml", io_service, cv_run);
 
   if(m.count("0.prime.0") > 0){
     Tello& t = *m["0.prime.0"];
-    t.cs->addCommandToQueue("command");
-    t.cs->addCommandToQueue("sdk?");
-    t.cs->addCommandToQueue("command");
-    t.cs->addCommandToQueue("sdk?");
-    t.cs->addCommandToQueue("streamon");
-    t.cs->addCommandToQueue("takeoff");
+    // std::cout << ">>>>>>>>>>>>>>>>>> adding commands " << std::endl;
+    // t.cs->addCommandToQueue("command");
+    // t.cs->addCommandToQueue("sdk?");
+    // t.cs->addCommandToQueue("command");
+    // t.cs->addCommandToQueue("sdk?");
+    //t.cs->addCommandToQueue("streamon");
+    //t.cs->addCommandToQueue("takeoff");
+    // std::cout << "executing QEUE" << std::endl;
     t.cs->executeQueue();
-    t.cs->addCommandToQueue("forward 20");
-    t.cs->addCommandToQueue("back 20");
-    t.cs->addCommandToQueue("delay 5");
-    t.cs->addCommandToFrontOfQueue("stop");
+    // std::cout << ">>>>>>>>>>> after execute QUEUE" << std::endl;
+    //t.cs->addCommandToQueue("forward 20");
+    //t.cs->addCommandToQueue("back 20");
+    //t.cs->addCommandToQueue("delay 5");
+    //t.cs->addCommandToFrontOfQueue("stop");
     // t.cs->stopQueueExecution();
-    t.cs->doNotAutoLand();
-    t.cs->addCommandToQueue("land");
+    //t.cs->doNotAutoLand();
+    //t.cs->addCommandToQueue("land");
   }
   else{
     utils_log::LogErr() << "The requested drone does not exist.";
@@ -45,20 +49,25 @@ int main(){
 
 #else
 
+  utils_log::LogErr() << "<<<<<<<<<<<<<<<<<<< NOT USING CONFIG";
   Tello t(io_service, cv_run, "192.168.10.1", "8889", "11111", "8890", "../camera_config.yaml", "../orb_vocab.dbow2");
 
+  
   t.cs->addCommandToQueue("command");
   t.cs->addCommandToQueue("sdk?");
   t.cs->addCommandToQueue("streamon");
   t.cs->addCommandToQueue("takeoff");
+  
+  
   t.cs->executeQueue();
-  t.cs->addCommandToQueue("forward 20");
-  t.cs->addCommandToQueue("back 20");
-  t.cs->addCommandToQueue("delay 5");
-  t.cs->addCommandToFrontOfQueue("stop");
+  
+  // t.cs->addCommandToQueue("forward 20");
+  // t.cs->addCommandToQueue("back 20");
+  // t.cs->addCommandToQueue("delay 5");
+  // t.cs->addCommandToFrontOfQueue("stop");
   // t.cs->stopQueueExecution();
-  t.cs->doNotAutoLand();
-  t.cs->addCommandToQueue("land");
+  // t.cs->doNotAutoLand();
+  // t.cs->addCommandToQueue("land");
 
 #endif
 

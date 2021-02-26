@@ -57,7 +57,7 @@ VideoSocket::VideoSocket(
 #endif
 
 #ifdef RECORD
-  std::string create_video_folder = "mkdir ../videos";
+  std::string create_video_folder = "mkdir -p ../videos";
   system(create_video_folder.c_str());
   time_t rawtime;
   struct tm * timeinfo;
@@ -68,7 +68,7 @@ VideoSocket::VideoSocket(
   video = std::make_unique<cv::VideoWriter>(buffer, cv::VideoWriter::fourcc('m','p','4','v'), 30, cv::Size(960,720));
 #endif
 
-  std::string create_folder = "mkdir ../snapshots";
+  std::string create_folder = "mkdir -p ../snapshots";
   system(create_folder.c_str());
 }
 
@@ -125,9 +125,9 @@ void VideoSocket::decodeFrame()
 #endif
 
 #ifdef RUN_SLAM
-        cv::Mat greyMat;
-        cv::cvtColor(mat, greyMat, cv::COLOR_BGR2GRAY);
-        api_->addFrameToQueue(greyMat);
+        // cv::Mat greyMat;
+        // cv::cvtColor(mat, greyMat, cv::COLOR_BGR2GRAY);
+        // api_->addFrameToQueue(greyMat);
         // NOTE: In case there are some gdk/pangolin crashes
         // 1. comment out the 3 lines below and display only the frame displayed
         //    with keypoints on L92 of pangolin_viewer/viewer.cc
@@ -135,11 +135,11 @@ void VideoSocket::decodeFrame()
         // 2. Comment out L96-99 of pangolin_viewer/viewer.cc and amke install
         //    OpenVSLAM
         // and then rebuild the code
-        {
-          std::unique_lock<std::mutex> lk(api_->getMutex());
-          cv::imshow("Pilot view", mat.clone());
-          cv::waitKey(1);
-        }
+        // {
+        //   std::unique_lock<std::mutex> lk(api_->getMutex());
+        //   cv::imshow("Pilot view", mat.clone());
+        //   cv::waitKey(1);
+        // }
 #else
         cv::imshow("Pilot view", mat.clone());
         cv::waitKey(1);
